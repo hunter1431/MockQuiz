@@ -1,11 +1,13 @@
 namespace App\Services;
 
+use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Configuration;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PDO;
 
-class MSSQLService
+class MySQLService
 {
  
 private $infoPathBridge;
@@ -50,12 +52,17 @@ public function __construct()
 
 public function connectDB()
 {
-   $mssql = $this->infoPathBridge->getInfoPath();
+  $mysql = $this->infoPathBridge->getInfoPath();
 
-   $dsn = "sqlsrv:Server={$mssql->datasource};Database={$mssql->database}";
-   $conn = new PDO($dsn, $mssql->UID, $mssql->Pword);
+  $connection = DriverManager::getConnection([
+      'dbname' => $mysql->database,
+      'user' => $mysql->UID,
+      'password' => $mysql->Pword,
+      'host' => $mysql->datasource,
+      'driver' => 'pdo_mysql',
+  ], new Configuration());
 
-   return $conn;
+  return $connection;
 }
 
 }
