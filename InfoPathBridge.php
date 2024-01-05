@@ -25,12 +25,12 @@ class InfoPathBridge
        $strInfoPath = $this->infopath();
        $parsed = explode("|", $strInfoPath);
 
-       $mssql = new MSSQL;
-       $mssql->database = $parsed[0];
-       $mssql->datasource = $parsed[1];
-       $mssql->UID = $parsed[2];
-       $mssql->Pword = $parsed[3];
+       $mysql = new MSSQL;
+       $mysql->database = $parsed[0];
+       $mysql->datasource = $parsed[1];
+       $mysql->UID = $parsed[2];
+       $mysql->Pword = $parsed[3];
 
-       return $mssql;
+       return $mysql;
    }
 }
